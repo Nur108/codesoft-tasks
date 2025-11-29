@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 350px;
+            height: 500px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 8px 10px;
+            border-radius: 6px;
+        }
+        .user {
+            background: #d1e7ff;
+            text-align: right;
+        }
+        .bot {
+            background: #e7e7e7;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px;
+            width: 18%;
+            border-radius: 5px;
+            border: none;
+            background: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div id="chatBox" class="chat-box"></div>
+
+    <div>
+        <input id="userInput" type="text" placeholder="Type your message..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function botResponse(message) {
+        message = message.toLowerCase();
+
+        if (message.includes("hi") || message.includes("hello")) {
+            return "Hello! How can I help you?";
+        }
+        else if (message.includes("your name")) {
+            return "I am a simple web chatbot.";
+        }
+        else if (message.includes("how are you")) {
+            return "I'm doing great! Thanks for asking.";
+        }
+        else if (message.includes("time")) {
+            return "I can't tell the time yet!";
+        }
+        else if (message.includes("weather")) {
+            return "I hope the weather is nice outside!";
+        }
+        else if (message.includes("bye")) {
+            return "Goodbye! Have a great day!";
+        }
+        else {
+            return "Sorry, I didn't understand that.";
+        }
+    }
+
+    function sendMessage() {
+        let userInput = document.getElementById("userInput");
+        let chatBox = document.getElementById("chatBox");
+
+        let userText = userInput.value;
+        if (userText.trim() === "") return;
+
+        // Display user message
+        chatBox.innerHTML += `<div class="message user">${userText}</div>`;
+
+        // Get bot reply
+        let reply = botResponse(userText);
+        chatBox.innerHTML += `<div class="message bot">${reply}</div>`;
+
+        // Clear input
+        userInput.value = "";
+
+        // Auto-scroll
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
